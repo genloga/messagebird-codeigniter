@@ -23,10 +23,6 @@ public function sendSMSMessageBird(){
         $Message->recipients = $this->input->post('telephone');
         $Message->body       = $this->input->post('message');
 
-        //$table = array_chunk($this->input->post('telephone'),50);
-
-        //print_r(sizeof($table));
-
         try {
             $MessageResult = $MessageBird->messages->create($Message);
             //var_dump($MessageResult);
@@ -38,7 +34,6 @@ public function sendSMSMessageBird(){
                 'code' => 'error',
                 'message' => 'Your api key is incorrect '
             );
-            $this->smsIndividuel($data);
 
         } catch (\MessageBird\Exceptions\BalanceException $e) {
             // That means that you are out of credits, so do something about it.
@@ -53,7 +48,6 @@ public function sendSMSMessageBird(){
                 'code' => 'error',
                 'message' => $e->getMessage()
             );
-            $this->smsIndividuel($data);
         }
 
 #5- That's it. Good luck!
